@@ -1,0 +1,47 @@
+import java.util.*;
+
+class Calendar {
+    public static void main(String[] args) {
+       
+        if (args.length != 3) {
+            System.out.println("Please provide date, month, and year as command line arguments.");
+            return;
+        }
+
+        int date = Integer.parseInt(args[0]);
+        int month = Integer.parseInt(args[1]);
+        int year = Integer.parseInt(args[2]);
+
+        
+        if (date < 1 || date > 31 || month < 1 || month > 12 || year < 0) {
+            System.out.println("Invalid date, month, or year.");
+            return;
+        }
+
+        // Step 4: Use switch-case and loops to display the particular day
+        String[] months = {"January", "February", "March", "April", "May", "June", "July", 
+                           "August", "September", "October", "November", "December"};
+        String[] daysOfWeek = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", 
+                               "Friday", "Saturday"};
+
+        // Zeller's Congruence algorithm to calculate the day of the week
+        int m = month;
+        int d = date;
+        int y = year;
+
+        if (month == 1 || month == 2) {
+            m += 12;
+            y -= 1;
+        }
+
+        int K = y % 100;
+        int J = y / 100;
+
+        int f = d + (13 * (m + 1)) / 5 + K + (K / 4) + (J / 4) - (2 * J);
+        int dayOfWeek = ((f % 7) + 7) % 7;
+
+        // Output the result
+        System.out.println("Date: " + date + " " + months[month - 1] + " " + year);
+        System.out.println("Day of the Week: " + daysOfWeek[dayOfWeek]);
+    }
+}
